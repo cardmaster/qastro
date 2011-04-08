@@ -1,0 +1,11 @@
+The source code is mainly from swe project, and I 've reorganize them
+for my Qt Project.
+
+The code from swe project belongs to its writer.
+The .pro/.pri files are created by leaf<leafjohn@gmail.com>, all rights reserved to him.
+
+BESIDES, since qastro is released under GPLv3, and libswe is Under GPLv2, if this cause some
+Legal issue, please contact me: leafjohn@gmail.com
+
+Read the file LICENSE to see more details about libswe
+
