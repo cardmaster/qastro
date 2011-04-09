@@ -1,6 +1,7 @@
 #ifndef PIEMODEL_H
 #define PIEMODEL_H
 #include <QObject>
+#include <QPixmap>
 
 
 class PieModel : public QObject
@@ -9,9 +10,9 @@ class PieModel : public QObject
 public:
     Q_PROPERTY (QPixmap icon READ icon WRITE setIcon NOTIFY iconChanged)
     Q_PROPERTY (qreal startAngle READ startAngle WRITE setStartAngle NOTIFY startAngleChanged);
-    Q_PROPERTY (qreal endAngle READ endAngle WRITE setStartAngle NOTIFY endAngleChanged);
-    Q_PROPERTY (QString name READ name WRITE setStartAngle NOTIFY nameChanged);
-    Q_PROPERTY (QString detail READ detail WRITE setStartAngle NOTIFY detailChanged);
+    Q_PROPERTY (qreal endAngle READ endAngle WRITE setEndAngle NOTIFY endAngleChanged);
+    Q_PROPERTY (QString name READ name WRITE setName NOTIFY nameChanged);
+    Q_PROPERTY (QString detail READ detail WRITE setDetail NOTIFY detailChanged);
 public:
     explicit PieModel(QObject *parent = 0);
     virtual ~PieModel();
@@ -21,11 +22,11 @@ public:
     void setDetail(const QString &det);
     qreal startAngle() const;
     qreal endAngle() const;
-    QString name() const;
-    QString detail() const;
+    const QString &name() const;
+    const QString &detail() const;
 
-    void PieModel::setIcon (const QPixmap & icon);
-    const QPixmap & PieModel::icon () const;
+    void setIcon (const QPixmap & icon);
+    const QPixmap & icon () const;
 
 
 
