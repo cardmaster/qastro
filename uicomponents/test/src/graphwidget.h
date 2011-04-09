@@ -44,6 +44,7 @@
 #include <QtGui/QGraphicsView>
 
 class QGraphicsScene;
+class QGraphicsItem;
 
 //! [0]
 class GraphWidget : public QGraphicsView
@@ -53,6 +54,8 @@ class GraphWidget : public QGraphicsView
 public:
     GraphWidget(QWidget *parent = 0);
     virtual ~GraphWidget();
+
+    void addItem (QGraphicsItem *item, QPointF pos = QPointF(0, 0), int zIndex = 0);
 
 protected:
     void keyPressEvent(QKeyEvent *event);

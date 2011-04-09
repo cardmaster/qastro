@@ -65,6 +65,13 @@ GraphWidget::~GraphWidget()
 {
 }
 
+void GraphWidget::addItem(QGraphicsItem *item, QPointF pos, int zIndex)
+{
+    _scene->addItem(item);
+    item->setPos(pos);
+    item->setZValue(zIndex);
+}
+
 void GraphWidget::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
