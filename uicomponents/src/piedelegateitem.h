@@ -3,6 +3,14 @@
 
 #include <QGraphicsObject>
 
+class PieModel;
+/*! Show a Pie based on A QObject's property
+ * The pie delegate is base on a QObject's property as its model
+ * Those property in the QObject will effects:
+ * startAngle*, endAngle*, icon, name, discription (* is necessary)
+ * if the model object doesn't have all the necessary props,
+ * It'll fail to bind.
+ */
 class PieDelegateItem : public QGraphicsObject
 {
     Q_OBJECT
@@ -27,6 +35,11 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
+/*! attach to a PieModel, change the view corresponding with model data
+* \note dettach the model by passing in 0 (NULL pointer)
+*/
+    void setModel (PieModel *model);
+
 protected:
     QPainterPath piePath() const;
 
@@ -35,12 +48,15 @@ signals:
     void startAngleChanged (qreal sa);
     void endAngleChanged (qreal ea);
 
-public slots:
+private slots:
+    void onModelPropertyChanged();
 
 private:
     qreal _radius;
     qreal _startAngle;
     qreal _endAngle;
+
+    PieModel *_model;
 
 };
 

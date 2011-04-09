@@ -7,7 +7,8 @@ PieDelegateItem::PieDelegateItem(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     _radius(140.0),
     _startAngle(0),
-    _endAngle(30)
+    _endAngle(30),
+    _model(0)
 {
 }
 
@@ -43,6 +44,16 @@ void PieDelegateItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
     painter->setPen(QPen(QBrush(Qt::black), 2));
     painter->setBrush(QBrush(Qt::red));
     painter->drawPath(pie);
+}
+
+void PieDelegateItem::onModelPropertyChanged()
+{
+}
+
+void PieDelegateItem::setModel(PieModel *model)
+{
+    if (model != _model) {
+    }
 }
 
 void PieDelegateItem::setRadius(qreal rad)
