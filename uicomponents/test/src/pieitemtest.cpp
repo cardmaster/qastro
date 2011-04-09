@@ -1,4 +1,5 @@
 #include "piedelegateitem.h"
+#include "piemodel.h"
 #include "graphwidget.h"
 
 void pieDelegateItemTest()
@@ -7,6 +8,13 @@ void pieDelegateItemTest()
     PieDelegateItem *pie = new PieDelegateItem;
     grph->addItem(pie);
     pie->setPos(150, 150);
+
+    PieModel *piem = new PieModel(grph);
+    piem->setStartAngle(30);
+    piem->setEndAngle(60);
+    piem->setName(QString("NONONO<b>NO</b>"));
+    pie->setModel(piem);
+    piem->setName("HAHAHAH<b>HAHAH</b>");
 
     QGraphicsRectItem *iZone = new QGraphicsRectItem;
     iZone->setBrush(QBrush(QColor(200, 200, 0, 100)));

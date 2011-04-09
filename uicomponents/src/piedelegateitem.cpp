@@ -22,6 +22,12 @@ static const char * mysignals[] = {
 };
 static const int SignalSlotsCount = sizeof(myslots) / sizeof(myslots[0]);
 
+/*! Move this some where when u add new feature */
+QPointF axisTransform (qreal rad, qreal pos, QSizeF itemsize = QSizeF(0, 0), QPointF startPoint = QPointF(0,0) );
+static const qreal IconPosition = 0.8;
+static const qreal NamePosition = 0.8;
+static const qreal DetailPostion = 0.9;
+
 PieDelegateItem::PieDelegateItem(QGraphicsItem *parent) :
     QGraphicsObject(parent),
     _radius(140.0),
@@ -78,8 +84,35 @@ void PieDelegateItem::onEndAngleChanged(qreal ang)
     setEndAngle(ang);
 }
 
-void PieDelegateItem::onNameChanged(QString ang)
+#include <QTextDocument>
+void PieDelegateItem::onNameChanged(QString name)
 {
+    if (_name == 0 && name.isEmpty())
+        return;
+    if (_name == 0) {
+        _name = new QGraphicsTextItem(name, this);
+    } else {
+        _name->document()->setHtml(name);
+    }
+    positionItem(_name, NamePosition);
+}
+
+void PieDelegateItem::updatePositions()
+{
+    positionItem(_icon, IconPosition);
+    positionItem(_name, NamePosition);
+    positionItem(_detail, DetailPostion);
+}
+
+void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
+{
+    if (item == 0)
+        return;
+    QPointF pos = axisTransform ( radius() * rate,
+         (startAngle() + endAngle()) / 2.0,
+         item->boundingRect().size()
+    );
+    item->setPos(pos);
 }
 
 void PieDelegateItem::onDetailChanged(QString det)
@@ -91,9 +124,11 @@ void PieDelegateItem::onIconChanged(QPixmap pix)
     if (pix.isNull() && _icon == 0)
         return;
     if (_icon == 0) {
-        _icon = new QGraphicsPixmapItem(this);
+        _icon = new QGraphicsPixmapItem(pix, this);
+    } else {
+        _icon->setPixmap(pix);
     }
-    _icon->setPixmap(pix);
+    positionItem(_icon, 0.8);
 }
 
 void PieDelegateItem::setModel(PieModel *model)
@@ -127,8 +162,10 @@ void PieDelegateItem::updateView()
         delete _icon;
         return;
     }
-    this->onNameChanged(_model->name());
+    this->onStartAngleChanged(_model->startAngle());
+    this->onEndAngleChanged(_model->endAngle());
     this->onIconChanged(_model->icon());
+    this->onNameChanged(_model->name());
     this->onDetailChanged(_model->detail());
 }
 
@@ -170,4 +207,30 @@ qreal PieDelegateItem::startAngle() const
 qreal PieDelegateItem::endAngle() const
 {
     return _endAngle;
+}
+
+/*Angle Cacluations, I think they should be move to somewhere*/
+static qreal angleToRad (qreal angle)
+{
+    return angle * M_PI / 180.0;
+}
+
+static qreal radToAngle (qreal rad)
+{
+    return rad * 180.0 / M_PI;
+}
+
+/*Calculate the position of a item with given radius and angle,
+ * position it in the center
+ * The angle is in degree, not rad degree
+ */
+QPointF axisTransform (qreal radius, qreal angle, QSizeF itemsize, QPointF startPoint)
+{
+    qreal rad = angleToRad(angle);
+    qreal dx = cos(rad) * radius;
+    qreal dy = sin(rad) * radius;
+    qreal xfix = itemsize.width() / 2.0;
+    qreal yfix = itemsize.height() / 2.0;
+    QPointF move(dx - xfix, dy - yfix);
+    return startPoint + move;
 }

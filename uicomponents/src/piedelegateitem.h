@@ -61,6 +61,10 @@ private slots:
     void onIconChanged(QPixmap pix);
 
 private:
+    void positionItem(QGraphicsItem *item, qreal rate);
+    void updatePositions();
+
+private:
     qreal _radius;
     qreal _startAngle;
     qreal _endAngle;
