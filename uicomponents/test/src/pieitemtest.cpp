@@ -14,7 +14,7 @@ void pieDelegateItemTest()
     piem->setEndAngle(60);
     piem->setName(QString("NONONO<b>NO</b>"));
     pie->setModel(piem);
-    piem->setName("HAHAHAH<b>HAHAH</b>");
+    piem->setName("Tarus");
 
     QGraphicsRectItem *iZone = new QGraphicsRectItem;
     iZone->setBrush(QBrush(QColor(200, 200, 0, 100)));

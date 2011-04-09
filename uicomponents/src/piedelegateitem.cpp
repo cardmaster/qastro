@@ -104,6 +104,7 @@ void PieDelegateItem::updatePositions()
     positionItem(_detail, DetailPostion);
 }
 
+#include <QDebug>
 void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
 {
     if (item == 0)
@@ -112,6 +113,7 @@ void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
          (startAngle() + endAngle()) / 2.0,
          item->boundingRect().size()
     );
+    qDebug() << "Postion " << item << " @ " << pos;
     item->setPos(pos);
 }
 
@@ -228,7 +230,7 @@ QPointF axisTransform (qreal radius, qreal angle, QSizeF itemsize, QPointF start
 {
     qreal rad = angleToRad(angle);
     qreal dx = cos(rad) * radius;
-    qreal dy = sin(rad) * radius;
+    qreal dy = - sin(rad) * radius; //Y axis going down in screen
     qreal xfix = itemsize.width() / 2.0;
     qreal yfix = itemsize.height() / 2.0;
     QPointF move(dx - xfix, dy - yfix);
