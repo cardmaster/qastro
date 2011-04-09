@@ -7,10 +7,10 @@
 #include <cmath>
 /*! You have to make sure these 2 arrays match */
 static const char * myslots[] = {
-	SLOT(onDetailChanged(QString)),
+	SLOT(setDetail(QString)),
 	SLOT(onEndAngleChanged(qreal)),
-	SLOT(onIconChanged(QPixmap)),
-	SLOT(onNameChanged(QString)),
+	SLOT(setIcon(QPixmap)),
+	SLOT(setName(QString)),
 	SLOT(onStartAngleChanged(qreal))
 };
 static const char * mysignals[] = {
@@ -20,7 +20,13 @@ static const char * mysignals[] = {
 	SIGNAL(nameChanged(QString)),
 	SIGNAL(startAngleChanged(qreal)),
 };
-static const int SignalSlotsCount = sizeof(myslots) / sizeof(myslots[0]);
+#define ARRAY_LEN(ary) (sizeof((ary)) / sizeof((ary)[0]))
+static const int SignalSlotsCount = ARRAY_LEN(myslots);
+
+static const char * NecessaryProps[] = {"startAngle", "endAngle"};
+static const int NecessaryPropsCount = ARRAY_LEN(NecessaryProps);
+static const char * AdditionalProps[] = {"name", "detail", "icon"};
+static const int AdditionalPropsCount = ARRAY_LEN(AdditionalProps);
 
 /*! Move this some where when u add new feature */
 QPointF axisTransform (qreal rad, qreal pos, QSizeF itemsize = QSizeF(0, 0), QPointF startPoint = QPointF(0,0) );
@@ -85,7 +91,7 @@ void PieDelegateItem::onEndAngleChanged(qreal ang)
 }
 
 #include <QTextDocument>
-void PieDelegateItem::onNameChanged(QString name)
+void PieDelegateItem::setName(QString name)
 {
     if (_name == 0 && name.isEmpty())
         return;
@@ -115,11 +121,11 @@ void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
     item->setPos(pos);
 }
 
-void PieDelegateItem::onDetailChanged(QString det)
+void PieDelegateItem::setDetail(QString det)
 {
 }
 
-void PieDelegateItem::onIconChanged(QPixmap pix)
+void PieDelegateItem::setIcon(QPixmap pix)
 {
     if (pix.isNull() && _icon == 0)
         return;
@@ -137,12 +143,45 @@ void PieDelegateItem::setModel(PieModel *model)
         if (_model != 0) {
             detachModel();
         }
+        if (model == 0)
+            return;
         _model = model;
         for (int i = 0; i < SignalSlotsCount; ++i) {
             connect (model, mysignals[i], this, myslots[i]);
         }
         updateView();
     }
+}
+
+void PieDelegateItem::setModel(QObject *model)
+{
+    PieModel *pm = qobject_cast<PieModel *>(model);
+    if (pm != 0) {
+        setModel (pm);
+    } else {
+        for (int i = 0; i < NecessaryPropsCount; ++i) {
+            if (! model->property(NecessaryProps[i]).isValid()) {
+                return;
+            }
+        }
+
+        detachModel();
+        //set necessary props
+        for (int i = 0; i < NecessaryPropsCount; ++i) {
+            const char *prop = NecessaryProps[i];
+            setProperty(prop, model->property(prop));
+        }
+        for (int i = 0; i < AdditionalPropsCount; ++i) {
+            const char *prop = NecessaryProps[i];
+            QVariant propv = model->property(prop);
+            setProperty(prop, propv);
+        }
+    }
+}
+
+QObject *PieDelegateItem::model () const
+{
+    return _model;
 }
 
 void PieDelegateItem::detachModel()
@@ -152,6 +191,10 @@ void PieDelegateItem::detachModel()
     for (int i = 0; i < SignalSlotsCount; ++i) {
         disconnect(this, myslots[i]);
     }
+    setName("");
+    setIcon(QPixmap());
+    setDetail("");
+    _model = 0;
 }
 
 void PieDelegateItem::updateView()
@@ -164,9 +207,9 @@ void PieDelegateItem::updateView()
     }
     this->onStartAngleChanged(_model->startAngle());
     this->onEndAngleChanged(_model->endAngle());
-    this->onIconChanged(_model->icon());
-    this->onNameChanged(_model->name());
-    this->onDetailChanged(_model->detail());
+    this->setIcon(_model->icon());
+    this->setName(_model->name());
+    this->setDetail(_model->detail());
 }
 
 void PieDelegateItem::setRadius(qreal rad)
@@ -211,6 +254,34 @@ qreal PieDelegateItem::startAngle() const
 qreal PieDelegateItem::endAngle() const
 {
     return _endAngle;
+}
+
+QPixmap PieDelegateItem::icon() const
+{
+    if (_icon != 0) {
+        return _icon->pixmap();
+    } else {
+        return QPixmap();
+    }
+}
+
+static QString extractTextItem(const QGraphicsTextItem *item)
+{
+    if (item != 0) {
+        return item->document()->toPlainText();
+    } else {
+        return QString();
+    }
+}
+
+QString PieDelegateItem::name() const
+{
+    return extractTextItem(_name);
+}
+
+QString PieDelegateItem::detail() const
+{
+    return extractTextItem(_detail);
 }
 
 /*Angle Cacluations, I think they should be move to somewhere*/

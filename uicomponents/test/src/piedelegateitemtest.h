@@ -21,6 +21,7 @@ public slots:
     void on_endAngleSlider_valueChanged(int val);
     void on_nameEdit_textChanged(QString text);
     void on_imageSelector_clicked();
+    void on_modelSwitch_toggled(bool tog);
 
 protected:
     void changeEvent(QEvent *e);
@@ -29,6 +30,7 @@ private:
     Ui::PieDelegateItemTest *_ui;
     PieModel *_model;
     PieDelegateItem *_item;
+    QObject *_object;
 };
 
 #endif // PIEDELEGATEITEMTEST_H

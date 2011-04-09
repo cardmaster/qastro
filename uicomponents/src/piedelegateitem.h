@@ -19,8 +19,11 @@ class PieDelegateItem : public QGraphicsObject
     Q_OBJECT
 public:
     Q_PROPERTY (qreal radius READ radius WRITE setRadius NOTIFY radiusChanged);
-    Q_PROPERTY (qreal startAngle READ startAngle WRITE setRadius NOTIFY startAngleChanged);
-    Q_PROPERTY (qreal endAngle READ endAngle WRITE setRadius NOTIFY endAngleChanged);
+    Q_PROPERTY (qreal startAngle READ startAngle WRITE setStartAngle NOTIFY startAngleChanged);
+    Q_PROPERTY (qreal endAngle READ endAngle WRITE setEndAngle NOTIFY endAngleChanged);
+    Q_PROPERTY (QString name READ name WRITE setName);
+    Q_PROPERTY (QString detail READ detail WRITE setDetail);
+    Q_PROPERTY (QPixmap icon READ icon WRITE setIcon);
 
     explicit PieDelegateItem(QGraphicsItem *parent = 0);
     virtual ~PieDelegateItem();
@@ -34,6 +37,10 @@ public:
     qreal startAngle() const;
     qreal endAngle() const;
 
+    QString detail() const;
+    QString name() const;
+    QPixmap icon() const;
+
     QPainterPath shape() const;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
@@ -43,6 +50,11 @@ public:
 */
     void setModel (PieModel *model);
     void detachModel();
+/*! set a QObject * as model, if it could be qobject_cast to a PieModel, call
+  The PieModel method. else, try to load data from properties
+  */
+    void setModel (QObject *model);
+    QObject *model() const;
 
 protected:
     virtual QPainterPath piePath() const;
@@ -53,12 +65,12 @@ signals:
     void startAngleChanged (qreal sa);
     void endAngleChanged (qreal ea);
 
-private slots:
+public slots:
     void onStartAngleChanged(qreal ang);
     void onEndAngleChanged(qreal ang);
-    void onNameChanged(QString ang);
-    void onDetailChanged(QString det);
-    void onIconChanged(QPixmap pix);
+    void setName(QString ang);
+    void setDetail(QString det);
+    void setIcon(QPixmap pix);
 
 private:
     void positionItem(QGraphicsItem *item, qreal rate);

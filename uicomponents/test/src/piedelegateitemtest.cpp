@@ -10,7 +10,8 @@ PieDelegateItemTest::PieDelegateItemTest(QWidget *parent) :
     QWidget(parent),
     _ui(new Ui::PieDelegateItemTest),
     _model (new PieModel(this)),
-    _item (new PieDelegateItem)
+    _item (new PieDelegateItem),
+    _object (new QObject(this))
 
 {
     _ui->setupUi(this);
@@ -18,6 +19,9 @@ PieDelegateItemTest::PieDelegateItemTest(QWidget *parent) :
     _model->setStartAngle(0);
     _model->setEndAngle(30);
     _item->setModel(_model);
+    _object->setProperty("startAngle", QVariant(-10.0));
+    _object->setProperty("endAngle", QVariant(180.0));
+
 #if 0
     connect (_ui->startAngleSlider, SIGNAL(valueChanged(int)),
              this, SLOT(on_startAngleSlider_valueChanged(int)) );
@@ -69,6 +73,15 @@ void PieDelegateItemTest::on_imageSelector_clicked()
     QPixmap pix(filename);
     if (! pix.isNull()) {
         _model->setIcon(pix);
+    }
+}
+
+void PieDelegateItemTest::on_modelSwitch_toggled(bool tog)
+{
+    if (tog) {
+        _item->setModel(_model);
+    } else {
+        _item->setModel(_object);
     }
 }
 
