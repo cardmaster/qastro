@@ -49,15 +49,15 @@ GraphWidget::GraphWidget(QWidget *parent)
 {
     QGraphicsScene *scene = new QGraphicsScene(this);
     scene->setItemIndexMethod(QGraphicsScene::NoIndex);
-    scene->setSceneRect(-200, -200, 400, 400);
+    scene->setSceneRect(-20, -20, 340, 340);
     setScene(scene);
     _scene = scene;
     setCacheMode(CacheBackground);
     setViewportUpdateMode(BoundingRectViewportUpdate);
     setRenderHint(QPainter::Antialiasing);
     setTransformationAnchor(AnchorUnderMouse);
-    scale(qreal(0.8), qreal(0.8));
-    setMinimumSize(400, 400);
+    scale(qreal(1.0), qreal(1.0));
+    setMinimumSize(600, 360);
     setWindowTitle(tr("qastro UI test frame"));
 }
 
@@ -115,12 +115,11 @@ void GraphWidget::drawBackground(QPainter *painter, const QRectF &rect)
     // Text
     QRectF textRect(sceneRect.left() + 4, sceneRect.top() + 4,
                     sceneRect.width() - 4, sceneRect.height() - 4);
-    QString message(tr("Click and drag the nodes around, and zoom with the mouse "
-                       "wheel or the '+' and '-' keys"));
+    QString message(tr("Zoom with the mouse wheel or the '+' and '-' keys"));
 
     QFont font = painter->font();
     font.setBold(true);
-    font.setPointSize(14);
+    font.setPointSize(12);
     painter->setFont(font);
     painter->setPen(Qt::lightGray);
     painter->drawText(textRect.translated(2, 2), message);
