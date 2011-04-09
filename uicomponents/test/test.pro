@@ -6,4 +6,5 @@ include (../uicomponents.pri)
 HEADERS += src/graphwidget.h
 
 SOURCES += src/main.cpp src/graphwidget.cpp \
-    src/fanshapetest.cpp
+    src/fanshapetest.cpp \
+    src/pieitemtest.cpp
