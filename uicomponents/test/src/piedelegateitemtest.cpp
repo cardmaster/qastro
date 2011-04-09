@@ -4,6 +4,7 @@
 #include "piemodel.h"
 
 #include <QDebug>
+#include <QFileDialog>
 
 PieDelegateItemTest::PieDelegateItemTest(QWidget *parent) :
     QWidget(parent),
@@ -61,6 +62,14 @@ void PieDelegateItemTest::on_nameEdit_textChanged(QString text)
 
 void PieDelegateItemTest::on_imageSelector_clicked()
 {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Open Your Icon Image"),
+                        ".", tr("Image Files(*.png)") );
+    if (filename.isEmpty())
+        return;
+    QPixmap pix(filename);
+    if (! pix.isNull()) {
+        _model->setIcon(pix);
+    }
 }
 
 void pieDelegateItemTest()
