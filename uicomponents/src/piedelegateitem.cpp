@@ -23,18 +23,16 @@ QRectF PieDelegateItem::boundingRect() const
     return QRectF(-r, -r, d, d);
 }
 
-QRegion PieDelegateItem::boundingRegion(const QTransform &matrix) const
+QPainterPath PieDelegateItem::shape() const
 {
-    QPainterPath pie = piePath();
-    QPolygonF poly = pie.toFillPolygon(matrix);
-    QRegion region(poly.toPolygon());
-    return region;
+    return piePath();
 }
 
 QPainterPath PieDelegateItem::piePath() const
 {
     QPainterPath path;
-    path.arcTo(boundingRect(), _startAngle, _endAngle);
+    path.arcTo(boundingRect(), _startAngle, _endAngle - _startAngle);
+    path.lineTo(0, 0);
     return path;
 }
 
@@ -42,6 +40,7 @@ void PieDelegateItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 {
     //Center at pos 0, 0
     QPainterPath pie = piePath();
+    painter->setPen(QPen(QBrush(Qt::black), 2));
     painter->setBrush(QBrush(Qt::red));
     painter->drawPath(pie);
 }
@@ -49,6 +48,7 @@ void PieDelegateItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *o
 void PieDelegateItem::setRadius(qreal rad)
 {
     if (_radius != rad) {
+        prepareGeometryChange();
         _radius = rad;
         emit radiusChanged(rad);
     }

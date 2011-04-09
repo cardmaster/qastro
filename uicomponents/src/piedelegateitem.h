@@ -23,7 +23,7 @@ public:
     qreal startAngle() const;
     qreal endAngle() const;
 
-    QRegion boundingRegion(const QTransform &itemToDeviceTransform) const;
+    QPainterPath shape() const;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
