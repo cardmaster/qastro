@@ -2,7 +2,7 @@
 
 int main(int argc, char **argv)
 {
-	QApplication app;
+	QApplication app(argc, argv);
 
-	return app.exec(argc, argv);
+	return app.exec();
 }
