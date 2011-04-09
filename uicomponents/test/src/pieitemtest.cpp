@@ -2,7 +2,7 @@
 #include "piemodel.h"
 #include "graphwidget.h"
 
-void pieDelegateItemTest()
+void pieDelegateItemTestSimple()
 {
     GraphWidget *grph = new GraphWidget;
     PieDelegateItem *pie = new PieDelegateItem;
