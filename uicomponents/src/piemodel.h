@@ -45,7 +45,7 @@ private:
 	qreal _endAngle;
 	QString _name;
 	QString _detail;
-    	QPixmap _icon;
+	QPixmap _icon;
 
 };
 #endif // PIEMODEL_H

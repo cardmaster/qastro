@@ -15,8 +15,8 @@ PieModel::~PieModel()
 void PieModel::setStartAngle (qreal startAngle)
 {
     if (_startAngle != startAngle) {
-	_startAngle = startAngle;
-	emit startAngleChanged(startAngle);
+        _startAngle = startAngle;
+        emit startAngleChanged(startAngle);
     }
 }
 
@@ -30,8 +30,8 @@ qreal PieModel::startAngle () const
 void PieModel::setEndAngle (qreal endAngle)
 {
     if (_endAngle != endAngle) {
-	_endAngle = endAngle;
-	emit endAngleChanged(endAngle);
+        _endAngle = endAngle;
+        emit endAngleChanged(endAngle);
     }
 }
 
@@ -45,8 +45,8 @@ qreal PieModel::endAngle () const
 void PieModel::setName (const QString & name)
 {
     if (_name != name) {
-	_name = name;
-	emit nameChanged(name);
+        _name = name;
+        emit nameChanged(name);
     }
 }
 
@@ -60,8 +60,8 @@ const QString & PieModel::name () const
 void PieModel::setDetail (const QString & detail)
 {
     if (_detail != detail) {
-	_detail = detail;
-	emit detailChanged(detail);
+        _detail = detail;
+        emit detailChanged(detail);
     }
 }
 

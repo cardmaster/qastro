@@ -4,6 +4,9 @@
 #include <QGraphicsObject>
 
 class PieModel;
+class QGraphicsTextItem;
+class QGraphicsPixmapItem;
+
 /*! Show a Pie based on A QObject's property
  * The pie delegate is base on a QObject's property as its model
  * Those property in the QObject will effects:
@@ -39,9 +42,11 @@ public:
 * \note dettach the model by passing in 0 (NULL pointer)
 */
     void setModel (PieModel *model);
+    void detachModel();
 
 protected:
-    QPainterPath piePath() const;
+    virtual QPainterPath piePath() const;
+    void updateView();
 
 signals:
     void radiusChanged (qreal rad);
@@ -49,7 +54,11 @@ signals:
     void endAngleChanged (qreal ea);
 
 private slots:
-    void onModelPropertyChanged();
+    void onStartAngleChanged(qreal ang);
+    void onEndAngleChanged(qreal ang);
+    void onNameChanged(QString ang);
+    void onDetailChanged(QString det);
+    void onIconChanged(QPixmap pix);
 
 private:
     qreal _radius;
@@ -57,7 +66,9 @@ private:
     qreal _endAngle;
 
     PieModel *_model;
-
+    QGraphicsPixmapItem *_icon;
+    QGraphicsTextItem *_name;
+    QGraphicsTextItem *_detail;
 };
 
 #endif // PIEDELEGATEITEM_H
