@@ -104,7 +104,6 @@ void PieDelegateItem::updatePositions()
     positionItem(_detail, DetailPostion);
 }
 
-#include <QDebug>
 void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
 {
     if (item == 0)
@@ -113,7 +112,6 @@ void PieDelegateItem::positionItem(QGraphicsItem *item, qreal rate)
          (startAngle() + endAngle()) / 2.0,
          item->boundingRect().size()
     );
-    qDebug() << "Postion " << item << " @ " << pos;
     item->setPos(pos);
 }
 
@@ -183,7 +181,9 @@ void PieDelegateItem::setRadius(qreal rad)
 void PieDelegateItem::setStartAngle(qreal angle)
 {
     if (_startAngle != angle) {
+        prepareGeometryChange();
         _startAngle = angle;
+        updatePositions();
         emit startAngleChanged(angle);
     }
 }
@@ -191,7 +191,9 @@ void PieDelegateItem::setStartAngle(qreal angle)
 void PieDelegateItem::setEndAngle(qreal angle)
 {
     if (_endAngle != angle) {
+        prepareGeometryChange();
         _endAngle = angle;
+        updatePositions();
         emit endAngleChanged(angle);
     }
 }
