@@ -1,12 +1,10 @@
 #ifndef PIEDELEGATEITEM_H
 #define PIEDELEGATEITEM_H
-
 #include <QGraphicsObject>
-
 class PieModel;
 class QGraphicsTextItem;
 class QGraphicsPixmapItem;
-
+class StyleOption;
 /*! Show a Pie based on A QObject's property
  * The pie delegate is base on a QObject's property as its model
  * Those property in the QObject will effects:
@@ -14,6 +12,9 @@ class QGraphicsPixmapItem;
  * if the model object doesn't have all the necessary props,
  * It'll fail to bind.
  */
+
+
+
 class PieDelegateItem : public QGraphicsObject
 {
     Q_OBJECT
@@ -24,27 +25,21 @@ public:
     Q_PROPERTY (QString name READ name WRITE setName);
     Q_PROPERTY (QString detail READ detail WRITE setDetail);
     Q_PROPERTY (QPixmap icon READ icon WRITE setIcon);
-
-    explicit PieDelegateItem(QGraphicsItem *parent = 0);
+public:
+    explicit PieDelegateItem(StyleOption *style = 0, QGraphicsItem *parent = 0);
     virtual ~PieDelegateItem();
-
     void setRadius(qreal rad);
     qreal radius() const;
-
     void setStartAngle(qreal angle);
     void setEndAngle(qreal angle);
-
     qreal startAngle() const;
     qreal endAngle() const;
-
     QString detail() const;
     QString name() const;
     QPixmap icon() const;
-
     QPainterPath shape() const;
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
 /*! attach to a PieModel, change the view corresponding with model data
 * \note dettach the model by passing in 0 (NULL pointer)
 */
@@ -56,6 +51,9 @@ public:
     void setModel (QObject *model);
     QObject *model() const;
 
+    void setStyle (StyleOption* style);
+    StyleOption* style () const;
+
 protected:
     virtual QPainterPath piePath() const;
     void updateView();
@@ -64,6 +62,7 @@ signals:
     void radiusChanged (qreal rad);
     void startAngleChanged (qreal sa);
     void endAngleChanged (qreal ea);
+    void styleChanged (StyleOption* style);
 
 public slots:
     void onStartAngleChanged(qreal ang);
@@ -75,16 +74,20 @@ public slots:
 private:
     void positionItem(QGraphicsItem *item, qreal rate);
     void updatePositions();
+private slots:
+    void onFontStyleChanged(const QFont &font);
+    void onPenChanged(const QPen &pen);
+    void onBrushChanged(const QBrush &brush);
 
 private:
     qreal _radius;
     qreal _startAngle;
     qreal _endAngle;
-
     PieModel *_model;
     QGraphicsPixmapItem *_icon;
     QGraphicsTextItem *_name;
     QGraphicsTextItem *_detail;
-};
+    StyleOption* _style;
 
+};
 #endif // PIEDELEGATEITEM_H

@@ -61,7 +61,7 @@ void PiePlate::createPies(int count)
         _pies.removeLast();
     }
     while (_pies.count() < count) {
-        PieDelegateItem *pie = new PieDelegateItem(this);
+        PieDelegateItem *pie = new PieDelegateItem(0, this);
         pie->setRadius(pieRadius());
         pie->setPos(0, 0);
         _pies.append(pie);

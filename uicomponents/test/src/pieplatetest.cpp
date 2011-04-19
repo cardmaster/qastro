@@ -3,9 +3,11 @@
 #include "piedelegateitem.h"
 #include "piemodel.h"
 #include "pieplate.h"
+#include "defaultpiestyle.h"
 
 #include <QDebug>
 #include <QFileDialog>
+#include <QColorDialog>
 static const int ModelsCount = 12;
 
 PiePlateTest::PiePlateTest(QWidget *parent) :
@@ -148,4 +150,14 @@ void PiePlateTest::on_ratioSpin_valueChanged(double ratio)
 void PiePlateTest::on_radiusSpin_valueChanged(int radius)
 {
     _plate->setRadius(radius);
+}
+
+void PiePlateTest::on_styleBtn_clicked()
+{
+    DefaultPieStyle *sty = DefaultPieStyle::instance();
+    QColor orig = sty->brush().color();
+    QColor dest = QColorDialog::getColor(orig, this);
+    if (dest.isValid()) {
+        sty->setBrush(QBrush(dest));
+    }
 }

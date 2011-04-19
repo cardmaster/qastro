@@ -27,6 +27,7 @@ public slots:
     void on_ratioSpin_valueChanged(double ratio);
     void on_radiusSpin_valueChanged(int radius);
     void on_bgSelector_clicked();
+    void on_styleBtn_clicked();
 
 protected:
     void changeEvent(QEvent *e);
