@@ -42,6 +42,7 @@ PiePlateTest::PiePlateTest(QWidget *parent) :
     _ui->pieSelector->setValue(0);
 
     _plate->setModel(_numbers);
+    _ui->radiusSpin->setValue(150);
 #if 0
     connect (_ui->startAngleSlider, SIGNAL(valueChanged(int)),
              this, SLOT(on_startAngleSlider_valueChanged(int)) );
