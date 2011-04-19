@@ -159,6 +159,7 @@ void PieDelegateItem::setModel(QObject *model)
     if (pm != 0) {
         setModel (pm);
     } else {
+        //check if all necessary data ready
         for (int i = 0; i < NecessaryPropsCount; ++i) {
             if (! model->property(NecessaryProps[i]).isValid()) {
                 return;
@@ -189,7 +190,7 @@ void PieDelegateItem::detachModel()
     if (_model == 0)
         return;
     for (int i = 0; i < SignalSlotsCount; ++i) {
-        disconnect(this, myslots[i]);
+        disconnect(_model, mysignals[i],this, myslots[i]);
     }
     setName("");
     setIcon(QPixmap());
