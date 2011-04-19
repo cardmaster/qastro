@@ -221,6 +221,7 @@ void PieDelegateItem::setRadius(qreal rad)
     if (_radius != rad) {
         prepareGeometryChange();
         _radius = rad;
+        updatePositions();
         emit radiusChanged(rad);
     }
 }
