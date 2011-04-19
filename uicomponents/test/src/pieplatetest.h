@@ -24,6 +24,8 @@ public slots:
     void on_imageSelector_clicked();
     void on_modelSwitch_toggled(bool tog);
     void on_pieSelector_valueChanged(int value);
+    void on_ratioSpin_valueChanged(double ratio);
+    void on_radiusSpin_valueChanged(int radius);
 
 protected:
     void changeEvent(QEvent *e);

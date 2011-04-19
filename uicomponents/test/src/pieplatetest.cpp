@@ -123,3 +123,14 @@ void piePlateTest()
     PiePlateTest *pt = new PiePlateTest;
     pt->show();
 }
+
+void PiePlateTest::on_ratioSpin_valueChanged(double ratio)
+{
+    qreal casted = static_cast<qreal>(ratio);
+    _plate->setRadiusRatio(casted);
+}
+
+void PiePlateTest::on_radiusSpin_valueChanged(int radius)
+{
+    _plate->setRadius(radius);
+}

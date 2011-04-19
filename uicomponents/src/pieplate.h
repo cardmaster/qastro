@@ -19,14 +19,23 @@ public:
     void setRadius(qreal radius);
     qreal radius() const;
 
+    /*! Radius Ratio, the ratio between pie and plate */
+    void setRadiusRatio(qreal ratio);
+    qreal radiusRatio() const;
+    qreal pieRadius() const;
+
 protected:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
 
 private:
+    void updatePieRadius();
     void createPies(int count);
+
+private:
     QList<PieDelegateItem *> _pies;
     qreal _radius;
+    qreal _radiusRatio;
 };
 
 #endif // PIEPLATE_H
