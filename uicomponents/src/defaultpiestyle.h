@@ -6,12 +6,11 @@ class DefaultPieStyle : public StyleOption
 {
     Q_OBJECT
 public:
+    static DefaultPieStyle *instance();
+
+private:
+    static DefaultPieStyle *s_instance;
     explicit DefaultPieStyle(QObject *parent = 0);
-
-signals:
-
-public slots:
-
 };
 
 #endif // DEFAULTPIESTYLE_H
