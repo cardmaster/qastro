@@ -1,5 +1,6 @@
 *.pro.user
 *-build-*
+old-*
 *.o
 moc_*
 ui_*.h
