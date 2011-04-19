@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>637</width>
+    <width>651</width>
     <height>508</height>
    </rect>
   </property>
@@ -177,6 +177,13 @@
         </layout>
        </item>
       </layout>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bgSelector">
+       <property name="text">
+        <string>Select Background</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

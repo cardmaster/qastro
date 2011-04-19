@@ -92,15 +92,29 @@ void PiePlateTest::on_nameEdit_textChanged(QString text)
     _model->setName(text);
 }
 
-void PiePlateTest::on_imageSelector_clicked()
+QPixmap PiePlateTest::selectPixmapFile()
 {
     QString filename = QFileDialog::getOpenFileName(this, tr("Open Your Icon Image"),
                         ".", tr("Image Files(*.png)") );
     if (filename.isEmpty())
-        return;
+        return QPixmap();
     QPixmap pix(filename);
+    return pix;
+}
+
+void PiePlateTest::on_imageSelector_clicked()
+{
+    QPixmap pix = selectPixmapFile();
     if (! pix.isNull()) {
         _model->setIcon(pix);
+    }
+}
+
+void PiePlateTest::on_bgSelector_clicked()
+{
+    QPixmap pix = selectPixmapFile();
+    if (! pix.isNull()) {
+        _plate->setBackground(pix);
     }
 }
 

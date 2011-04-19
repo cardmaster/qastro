@@ -26,12 +26,14 @@ public slots:
     void on_pieSelector_valueChanged(int value);
     void on_ratioSpin_valueChanged(double ratio);
     void on_radiusSpin_valueChanged(int radius);
+    void on_bgSelector_clicked();
 
 protected:
     void changeEvent(QEvent *e);
 
 private:
     void setCurrentModel(PieModel *pm);
+    QPixmap selectPixmapFile();
 
 private:
     Ui::PiePlateTest *_ui;
