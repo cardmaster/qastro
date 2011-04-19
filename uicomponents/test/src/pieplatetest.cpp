@@ -76,13 +76,13 @@ void PiePlateTest::setCurrentModel(PieModel *pm)
 
 void PiePlateTest::on_startAngleSlider_valueChanged(int val)
 {
-    qDebug() << "Start Value: " << val;
+//    qDebug() << "Start Value: " << val;
     _model->setStartAngle(val);
 }
 
 void PiePlateTest::on_endAngleSlider_valueChanged(int val)
 {
-    qDebug() << "End Value: " << val;
+//    qDebug() << "End Value: " << val;
     _model->setEndAngle(val);
 }
 

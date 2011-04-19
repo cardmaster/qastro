@@ -70,6 +70,9 @@ void PiePlate::setRadius(qreal radius)
     if (radius != _radius) {
         prepareGeometryChange();
         _radius = radius;
+        foreach (PieDelegateItem *pie, _pies) {
+            pie->setRadius(radius);
+        }
     }
 }
 

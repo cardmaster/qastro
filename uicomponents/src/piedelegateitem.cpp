@@ -5,6 +5,9 @@
 #include <QGraphicsTextItem>
 #include <QGraphicsPixmapItem>
 #include <cmath>
+
+#define DEBUG_PM_ANGLES 0
+#include <QDebug>
 /*! You have to make sure these 2 arrays match */
 static const char * myslots[] = {
 	SLOT(setDetail(QString)),
@@ -229,16 +232,30 @@ void PieDelegateItem::setStartAngle(qreal angle)
         _startAngle = angle;
         updatePositions();
         emit startAngleChanged(angle);
+#if DEBUG_PM_ANGLES
+        if (_model != 0) {
+            qDebug() << _model->name() << "Start: " << _model->startAngle();
+        }
+#endif
     }
 }
 
 void PieDelegateItem::setEndAngle(qreal angle)
 {
+
     if (_endAngle != angle) {
         prepareGeometryChange();
+        while (angle < _startAngle) {
+            angle += 360;
+        }
         _endAngle = angle;
         updatePositions();
         emit endAngleChanged(angle);
+#if DEBUG_PM_ANGLES
+        if (_model != 0) {
+            qDebug() << _model->name() << "End: " << _model->endAngle();
+        }
+#endif
     }
 }
 
