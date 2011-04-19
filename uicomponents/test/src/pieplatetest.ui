@@ -185,6 +185,13 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="styleBtn">
+       <property name="text">
+        <string>Edit Pie Style</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
   </layout>
