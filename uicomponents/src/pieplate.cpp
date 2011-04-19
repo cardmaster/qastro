@@ -12,6 +12,17 @@ PiePlate::~PiePlate()
 {
 }
 
+
+void PiePlate::setModel(QList<PieModel *> model)
+{
+    createPies(model.count());
+    QList<PieModel *>::iterator it = model.begin();
+    foreach (PieDelegateItem *pie, _pies) {
+        pie->setModel(*it);
+        ++it;
+    }
+}
+
 void PiePlate::setModel(QList<QObject *> model)
 {
     createPies(model.count());
@@ -26,6 +37,10 @@ void PiePlate::setModel(QList<qreal> model)
 {
     int cnt = model.count();
     createPies(cnt);
+    foreach (PieDelegateItem *pie, _pies) {
+        pie->detachModel();
+    }
+
     qreal prev = model.first();
     _pies[0]->setStartAngle(prev);
     for (int i = 1; i < cnt; ++i) {

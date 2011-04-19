@@ -3,16 +3,18 @@
 
 #include <QGraphicsObject>
 class PieDelegateItem;
+class PieModel;
 
 class PiePlate : public QGraphicsObject
 {
     Q_OBJECT
 public:
-    explicit PiePlate(QGraphicsItem *parent);
+    explicit PiePlate(QGraphicsItem *parent = 0);
     virtual ~PiePlate();
 
     void setModel(QList<qreal> model);
     void setModel(QList<QObject *> model);
+    void setModel(QList<PieModel *> model);
 
     void setRadius(qreal radius);
     qreal radius() const;

@@ -16,8 +16,6 @@ public:
 public:
     explicit PieModel(QObject *parent = 0);
     virtual ~PieModel();
-    void setStartAngle(qreal start);
-    void setEndAngle(qreal end);
     void setName(const QString &nam);
     void setDetail(const QString &det);
     qreal startAngle() const;
@@ -39,6 +37,8 @@ signals:
     void iconChanged (const QPixmap & icon);
 
 public slots:
+    void setStartAngle(qreal start);
+    void setEndAngle(qreal end);
 
 private:
 	qreal _startAngle;
