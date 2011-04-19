@@ -46,7 +46,8 @@ PieDelegateItem::PieDelegateItem(StyleOption *style, QGraphicsItem *parent) :
     _model(0),
     _icon(0),
     _name(0),
-    _detail(0)
+    _detail(0),
+    _style(0)
 {
     if (style == 0) {
         style = DefaultPieStyle::instance();
@@ -338,8 +339,16 @@ QPointF axisTransform (qreal radius, qreal angle, QSizeF itemsize, QPointF start
 void PieDelegateItem::setStyle (StyleOption* style)
 {
     if (_style != style) {
+        if (_style != 0) {
+            disconnect (_style, SIGNAL(fontChanged(QFont)), this, SLOT(onFontStyleChanged(QFont)));
+            disconnect (_style, SIGNAL(penChanged(QPen)), this, SLOT(onPenChanged(QPen)));
+            disconnect (_style, SIGNAL(brushChanged(QBrush)), this, SLOT(onBrushChanged(QBrush)));
+        }
         _style = style;
         update();
+        connect (style, SIGNAL(fontChanged(QFont)), this, SLOT(onFontStyleChanged(QFont)));
+        connect (style, SIGNAL(penChanged(QPen)), this, SLOT(onPenChanged(QPen)));
+        connect (style, SIGNAL(brushChanged(QBrush)), this, SLOT(onBrushChanged(QBrush)));
         emit styleChanged(style);
     }
 }
@@ -350,3 +359,21 @@ StyleOption* PieDelegateItem::style () const
     return _style;
 }
 
+void  PieDelegateItem::onFontStyleChanged(const QFont &font)
+{
+    if (_name != 0) {
+        _name->setFont(font);
+    }
+}
+
+void  PieDelegateItem::onPenChanged(const QPen &pen)
+{
+    Q_UNUSED(pen);
+    update();
+}
+
+void  PieDelegateItem::onBrushChanged(const QBrush &brush)
+{
+    Q_UNUSED(brush);
+    update();
+}

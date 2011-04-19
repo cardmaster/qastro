@@ -74,6 +74,11 @@ public slots:
 private:
     void positionItem(QGraphicsItem *item, qreal rate);
     void updatePositions();
+private slots:
+    void onFontStyleChanged(const QFont &font);
+    void onPenChanged(const QPen &pen);
+    void onBrushChanged(const QBrush &brush);
+
 private:
     qreal _radius;
     qreal _startAngle;
