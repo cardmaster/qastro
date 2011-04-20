@@ -8,6 +8,15 @@ namespace UIMath
 qreal angleToRad(qreal angle);
 qreal radToAngle(qreal rad);
 QPointF axisTransform (qreal rad, qreal pos, QSizeF itemsize = QSizeF(0, 0), QPointF startPoint = QPointF(0,0) );
+class TriAngleParam {
+public:
+    /* caculate the triangle param between two different point */
+    static TriAngleParam fromPoints(const QPointF &orig, const QPointF &dest);
+public:
+    TriAngleParam(qreal sin = 0, qreal cos = 1);
+    qreal sine;
+    qreal cosi;
+};
 
 };
 

@@ -29,4 +29,29 @@ QPointF axisTransform (qreal radius, qreal angle, QSizeF itemsize, QPointF start
     return startPoint + move;
 }
 
+TriAngleParam TriAngleParam::fromPoints(const QPointF &orig, const QPointF &dest)
+{
+    qreal x = orig.x();
+    qreal y = orig.y();
+    qreal cx = dest.x();
+    qreal cy = dest.y();
+    qreal dx = cx - x;
+    qreal dy = cy - y;
+    qreal sign = - dx * y + dy * x; // create a 正交 vector
+    int sn = (sign > 0) ? 1 : -1;
+
+    qreal vecmul = x * cx + y * cy;
+    qreal lenmul = sqrt ((cx * cx + cy * cy) * (x * x + y * y));
+
+    qreal cosa = vecmul / lenmul;
+    qreal sina = sn * sqrt (1 - cosa * cosa);
+    return TriAngleParam(sina, cosa);
+}
+
+TriAngleParam::TriAngleParam(qreal s, qreal c)
+    : sine(s), cosi(c)
+{
+}
+
+
 };

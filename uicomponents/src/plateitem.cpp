@@ -1,9 +1,10 @@
 #include "plateitem.h"
 #define DEBUG_PLATE_ZONE 1
+#include "uimath.h"
+using namespace UIMath;
 
 #include <QPainter>
 #include <QGraphicsSceneMouseEvent>
-#include <cmath>
 
 #include <QDebug>
 
@@ -107,33 +108,12 @@ void PlateItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
     //QGraphicsObject::mousePressEvent(event);
 }
 
-static qreal radToAngle (qreal rad)
-{
-    return rad * 180.0 / M_PI;
-}
-
-
 void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
-    qreal x = event->lastPos().x();
-    qreal y = event->lastPos().y();
-    qreal cx = event->pos().x();
-    qreal cy = event->pos().y();
-    qreal dx = cx - x;
-    qreal dy = cy - y;
-    qreal sign = - dx * y + dy * x; // create a 正交 vector
-    int sn = (sign > 0) ? 1 : -1;
-
-    qreal vecmul = x * cx + y * cy;
-    qreal lenmul = sqrt ((cx * cx + cy * cy) * (x * x + y * y));
-
-    qreal cosa = vecmul / lenmul;
-    qreal sina = sn * sqrt (1 - cosa * cosa);
-
-    qDebug() << "dx =" << cx << "dy =" << cy << "sin =" << sina << "cos =" << cosa;
+    TriAngleParam trip = TriAngleParam::fromPoints(event->lastPos(), event->pos());
 
     QTransform origtrans = transform();
-    QTransform rot(cosa, sina, -sina, cosa, 0, 0);
+    QTransform rot(trip.cosi, trip.sine, -trip.sine, trip.cosi, 0, 0);
     setTransform(origtrans * rot);
 
 }
@@ -142,4 +122,5 @@ void PlateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
     QTransform transf = transform();
     qDebug() << transf;
+    transf.isRotating();
 }
