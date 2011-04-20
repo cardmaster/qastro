@@ -45,6 +45,8 @@ PiePlateTest::PiePlateTest(QWidget *parent) :
 
     _plate->setModel(_numbers);
     _ui->radiusSpin->setValue(150);
+
+    connect (_plate, SIGNAL(rotationChanged(qreal)), this, SLOT(onRotationChanged(qreal)));
 #if 0
     connect (_ui->startAngleSlider, SIGNAL(valueChanged(int)),
              this, SLOT(on_startAngleSlider_valueChanged(int)) );
@@ -160,4 +162,14 @@ void PiePlateTest::on_styleBtn_clicked()
     if (dest.isValid()) {
         sty->setBrush(QBrush(dest));
     }
+}
+
+void PiePlateTest::on_rotatable_toggled(bool tog)
+{
+    _plate->setRotatable(tog);
+}
+
+void PiePlateTest::onRotationChanged(qreal rotation)
+{
+    qDebug() << "Plate Rotated, rotation = " << rotation;
 }
