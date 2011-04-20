@@ -29,6 +29,8 @@ signals:
     void backgroundChanged (QPixmap background);
 
 protected:
+private slots:
+    void onRadiusChanged(qreal rad);
 
 private:
     void updatePieRadius();

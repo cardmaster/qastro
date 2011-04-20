@@ -7,6 +7,7 @@ PiePlate::PiePlate(QGraphicsItem *parent) :
     PlateItem(parent),
     _radiusRatio(1.0)
 {
+    connect (this, SIGNAL(radiusChanged(qreal)), this, SLOT(onRadiusChanged(qreal)));
 }
 
 PiePlate::~PiePlate()
@@ -92,3 +93,7 @@ qreal PiePlate::pieRadius() const
     return radius() * radiusRatio();
 }
 
+void PiePlate::onRadiusChanged(qreal rad)
+{
+    updatePieRadius();
+}
