@@ -66,9 +66,9 @@ qreal TriAngleParam::toAngle() const
     qreal rad = acos(cosi);
     qreal angle = radToAngle(rad);
     if (sine >= 0) { /* range 0~180 */
-        return angle;
+        return -angle;
     } else {       /* range 180~360 */
-        return angle + 180.0;
+        return angle;
     }
 }
 

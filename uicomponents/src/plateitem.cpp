@@ -54,6 +54,12 @@ const QPixmap & PlateItem::background () const
 void PlateItem::setRotation (qreal rotation)
 {
     if (_rotation != rotation) {
+        while(rotation < 0) {
+            rotation += 360.0;
+        }
+        while(rotation >= 360) {
+            rotation -= 360;
+        }
         _rotation = rotation;
         emit rotationChanged(rotation);
     }
