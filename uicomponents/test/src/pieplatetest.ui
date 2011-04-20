@@ -179,6 +179,13 @@
       </layout>
      </item>
      <item>
+      <widget class="QCheckBox" name="rotatable">
+       <property name="text">
+        <string>Rotatable</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="bgSelector">
        <property name="text">
         <string>Select Background</string>

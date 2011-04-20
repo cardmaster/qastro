@@ -28,6 +28,9 @@ public slots:
     void on_radiusSpin_valueChanged(int radius);
     void on_bgSelector_clicked();
     void on_styleBtn_clicked();
+    void on_rotatable_toggled(bool tog);
+
+    void onRotationChanged(qreal rotation);
 
 protected:
     void changeEvent(QEvent *e);

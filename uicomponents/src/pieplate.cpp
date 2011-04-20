@@ -95,5 +95,6 @@ qreal PiePlate::pieRadius() const
 
 void PiePlate::onRadiusChanged(qreal rad)
 {
+    Q_UNUSED(rad);
     updatePieRadius();
 }
