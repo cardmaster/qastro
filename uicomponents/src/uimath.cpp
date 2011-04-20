@@ -40,8 +40,9 @@ TriAngleParam TriAngleParam::fromPoints(const QPointF &orig, const QPointF &dest
     qreal sign = - dx * y + dy * x; // create a 正交 vector
     int sn = (sign > 0) ? 1 : -1;
 
-    qreal vecmul = x * cx + y * cy;
-    qreal lenmul = sqrt ((cx * cx + cy * cy) * (x * x + y * y));
+    double vecmul = x * cx + y * cy;
+    double sqlen = (cx * cx + cy * cy) * (x * x + y * y);
+    double lenmul = sqrt (sqlen);
 
     qreal cosa = vecmul / lenmul;
     qreal sina = sn * sqrt (1 - cosa * cosa);
@@ -53,5 +54,22 @@ TriAngleParam::TriAngleParam(qreal s, qreal c)
 {
 }
 
+TriAngleParam &TriAngleParam::operator = (const TriAngleParam &oth)
+{
+    this->sine = oth.sine;
+    this->cosi = oth.cosi;
+    return *this;
+}
+
+qreal TriAngleParam::toAngle() const
+{
+    qreal rad = acos(cosi);
+    qreal angle = radToAngle(rad);
+    if (sine >= 0) { /* range 0~180 */
+        return angle;
+    } else {       /* range 180~360 */
+        return angle + 180.0;
+    }
+}
 
 };

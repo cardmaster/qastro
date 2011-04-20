@@ -14,6 +14,8 @@ public:
     static TriAngleParam fromPoints(const QPointF &orig, const QPointF &dest);
 public:
     TriAngleParam(qreal sin = 0, qreal cos = 1);
+    TriAngleParam &operator = (const TriAngleParam &oth);
+    qreal toAngle() const;
     qreal sine;
     qreal cosi;
 };

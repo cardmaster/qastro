@@ -102,8 +102,7 @@ void PlateItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 void PlateItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
-    _origPoint = event->pos();
-    _curRotation = 0;
+    _origPoint = event->scenePos() - this->scenePos();
 
     //QGraphicsObject::mousePressEvent(event);
 }
@@ -111,7 +110,6 @@ void PlateItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
 void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
     TriAngleParam trip = TriAngleParam::fromPoints(event->lastPos(), event->pos());
-
     QTransform origtrans = transform();
     QTransform rot(trip.cosi, trip.sine, -trip.sine, trip.cosi, 0, 0);
     setTransform(origtrans * rot);
@@ -120,7 +118,10 @@ void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void PlateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
-    QTransform transf = transform();
-    qDebug() << transf;
-    transf.isRotating();
+    TriAngleParam trip;
+    QPointF pos = event->scenePos() - this->scenePos();
+    qDebug() << "Orig" << _origPoint << "Cur" << pos;
+    trip = TriAngleParam::fromPoints(_origPoint, pos);
+    qDebug() << "RotationAngle " << trip.toAngle() << "cos =" << trip.cosi << "sine =" << trip.sine;
+    setRotation(trip.toAngle());
 }

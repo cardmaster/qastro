@@ -49,6 +49,5 @@ private:
     bool _rotatable;
 
     QPointF _origPoint;
-    qreal _curRotation;
 };
 #endif // PLATEITEM_H
