@@ -316,11 +316,6 @@ static qreal angleToRad (qreal angle)
     return angle * M_PI / 180.0;
 }
 
-static qreal radToAngle (qreal rad)
-{
-    return rad * 180.0 / M_PI;
-}
-
 /*Calculate the position of a item with given radius and angle,
  * position it in the center
  * The angle is in degree, not rad degree

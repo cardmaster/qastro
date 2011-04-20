@@ -2,6 +2,10 @@
 #define DEBUG_PLATE_ZONE 1
 
 #include <QPainter>
+#include <QGraphicsSceneMouseEvent>
+#include <cmath>
+
+#include <QDebug>
 
 PlateItem::PlateItem(QGraphicsItem *parent) :
     QGraphicsObject(parent),
@@ -93,4 +97,64 @@ void PlateItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     if (! _background.isNull()) {
         painter->drawPixmap(bound.topLeft(), _background);
     }
+}
+
+void PlateItem::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    _origPoint = event->pos();
+    _curRotation = 0;
+
+    //QGraphicsObject::mousePressEvent(event);
+}
+
+static qreal radToAngle (qreal rad)
+{
+    return rad * 180.0 / M_PI;
+}
+
+/*Note, could only calc very small change*/
+static qreal calculateMinorAngle(const QPointF &orig, const QPointF &cur)
+{
+    qreal x = orig.x();
+    qreal y = orig.y();
+    qreal dy = cur.y() - y;
+    qreal dx = cur.x() - x;
+    qreal value = sqrt((dy * dy + dx * dx) / (x * x + y * y));
+    qreal sign = x * dx + y * dy;
+    if (qFuzzyCompare(sign, 0)) {
+        return 0;
+    } else if (sign > 0) {
+        return -value;
+    } else {
+        return value;
+    }
+}
+
+void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+    qreal x = event->lastPos().x();
+    qreal y = event->lastPos().y();
+    qreal cx = event->pos().x();
+    qreal cy = event->pos().y();
+    qreal dx = cx - x;
+    qreal dy = cy - y;
+    qreal sign = - dx * y + dy * x; // create a 正交 vector
+    int sn = (sign > 0) ? 1 : -1;
+
+    qreal vecmul = x * cx + y * cy;
+    qreal lenmul = sqrt ((cx * cx + cy * cy) * (x * x + y * y));
+
+    qreal cosa = vecmul / lenmul;
+    qreal sina = sn * sqrt (1 - cosa * cosa);
+
+    qDebug() << "dx =" << cx << "dy =" << cy << "sin =" << sina << "cos =" << cosa;
+
+    QTransform origtrans = transform();
+    QTransform rot(cosa, sina, -sina, cosa, 0, 0);
+    setTransform(origtrans * rot);
+
+}
+
+void PlateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
+{
 }

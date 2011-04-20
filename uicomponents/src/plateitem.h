@@ -13,6 +13,13 @@ public:
     Q_PROPERTY (qreal radius READ radius WRITE setRadius NOTIFY radiusChanged)
 public:
     explicit PlateItem(QGraphicsItem *parent = 0);
+
+signals:
+    void radiusChanged (qreal radius);
+    void backgroundChanged (QPixmap background);
+    void rotationChanged (qreal rotation);
+    void rotatableChanged (bool rotatable);
+
 public:
     void setRadius (qreal radius);
     qreal radius () const;
@@ -30,12 +37,10 @@ public:
     QRectF boundingRect() const;
 protected:
     virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
-
-signals:
-    void radiusChanged (qreal radius);
-    void backgroundChanged (QPixmap background);
-    void rotationChanged (qreal rotation);
-    void rotatableChanged (bool rotatable);
+    /*Mouse Events*/
+    void mousePressEvent(QGraphicsSceneMouseEvent *event);
+    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
+    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
 private:
     qreal _radius;
@@ -43,5 +48,7 @@ private:
     qreal _rotation;
     bool _rotatable;
 
+    QPointF _origPoint;
+    qreal _curRotation;
 };
 #endif // PLATEITEM_H
