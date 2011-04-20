@@ -127,6 +127,6 @@ void PlateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
         TriAngleParam trip;
         QPointF pos = event->scenePos() - this->scenePos();
         trip = TriAngleParam::fromPoints(_origPoint, pos);
-        setRotation(trip.toAngle());
+        setRotation(rotation() + trip.toAngle());
     }
 }
