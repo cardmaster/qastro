@@ -6,7 +6,8 @@ HEADERS += \
     ../src/piemodel.h \
     ../src/styleoption.h \
     ../src/defaultpiestyle.h \
-    ../src/plateitem.h
+    ../src/plateitem.h \
+    ../src/uimath.h
 
 SOURCES += \
     ../src/pieplate.cpp \
@@ -14,4 +15,5 @@ SOURCES += \
     ../src/piemodel.cpp \
     ../src/styleoption.cpp \
     ../src/defaultpiestyle.cpp \
-    ../src/plateitem.cpp
+    ../src/plateitem.cpp \
+    ../src/uimath.cpp

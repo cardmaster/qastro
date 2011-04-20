@@ -112,23 +112,6 @@ static qreal radToAngle (qreal rad)
     return rad * 180.0 / M_PI;
 }
 
-/*Note, could only calc very small change*/
-static qreal calculateMinorAngle(const QPointF &orig, const QPointF &cur)
-{
-    qreal x = orig.x();
-    qreal y = orig.y();
-    qreal dy = cur.y() - y;
-    qreal dx = cur.x() - x;
-    qreal value = sqrt((dy * dy + dx * dx) / (x * x + y * y));
-    qreal sign = x * dx + y * dy;
-    if (qFuzzyCompare(sign, 0)) {
-        return 0;
-    } else if (sign > 0) {
-        return -value;
-    } else {
-        return value;
-    }
-}
 
 void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -157,4 +140,6 @@ void PlateItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 
 void PlateItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
+    QTransform transf = transform();
+    qDebug() << transf;
 }
