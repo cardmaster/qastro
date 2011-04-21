@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TimeLocEditor</class>
+ <widget class="QDialog" name="TimeLocEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>442</width>
+    <height>249</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>430</width>
+    <height>190</height>
+   </size>
+  </property>
+  <property name="font">
+   <font>
+    <pointsize>14</pointsize>
+    <weight>50</weight>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <spacer name="verticalSpacer_3">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>5</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetDefaultConstraint</enum>
+     </property>
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Name:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="iName">
+       <property name="toolTip">
+        <string>Your name</string>
+       </property>
+       <property name="whatsThis">
+        <string>Your name</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Place:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLineEdit" name="iPlace">
+       <property name="toolTip">
+        <string>The name of your hometown</string>
+       </property>
+       <property name="whatsThis">
+        <string>The name of your hometown</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>16777215</width>
+         <height>51</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Birth:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QDateTimeEdit" name="iDateTime">
+       <property name="toolTip">
+        <string>Your birth time, the more precise, the better</string>
+       </property>
+       <property name="whatsThis">
+        <string>Your birth time, the more precise, the better</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="iTimeZone">
+       <property name="toolTip">
+        <string>Beijing Time is GMT8</string>
+       </property>
+       <property name="whatsThis">
+        <string>Set your timezone, e.g. Beijing is GMT8</string>
+       </property>
+       <property name="wrapping">
+        <bool>true</bool>
+       </property>
+       <property name="prefix">
+        <string>GMT</string>
+       </property>
+       <property name="minimum">
+        <number>-12</number>
+       </property>
+       <property name="maximum">
+        <number>12</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>19</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="1" column="0">
+      <widget class="QComboBox" name="comboBox_2">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Latitude, North or Sourth</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>North</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sourth</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="0" column="0">
+      <widget class="QComboBox" name="comboBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Longitude, East or West</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>East</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>West</string>
+        </property>
+       </item>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QSpinBox" name="iLatDeg">
+       <property name="toolTip">
+        <string>Latitude, degrees</string>
+       </property>
+       <property name="whatsThis">
+        <string>Latitude, degrees</string>
+       </property>
+       <property name="suffix">
+        <string>°</string>
+       </property>
+       <property name="maximum">
+        <number>90</number>
+       </property>
+       <property name="value">
+        <number>33</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QSpinBox" name="iLonDeg">
+       <property name="toolTip">
+        <string>Longitude, degrees</string>
+       </property>
+       <property name="whatsThis">
+        <string>Longitude, degrees</string>
+       </property>
+       <property name="suffix">
+        <string>°</string>
+       </property>
+       <property name="maximum">
+        <number>180</number>
+       </property>
+       <property name="value">
+        <number>127</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="3">
+      <widget class="QSpinBox" name="iLatMin">
+       <property name="toolTip">
+        <string>Latitude, minutes</string>
+       </property>
+       <property name="whatsThis">
+        <string>Latitude, minutes</string>
+       </property>
+       <property name="suffix">
+        <string>'</string>
+       </property>
+       <property name="maximum">
+        <number>59</number>
+       </property>
+       <property name="value">
+        <number>57</number>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="4">
+      <widget class="QSpinBox" name="iLatSec">
+       <property name="toolTip">
+        <string>Latitude, seconds</string>
+       </property>
+       <property name="whatsThis">
+        <string>Latitude, seconds</string>
+       </property>
+       <property name="suffix">
+        <string>&quot;</string>
+       </property>
+       <property name="maximum">
+        <number>59</number>
+       </property>
+       <property name="value">
+        <number>22</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <widget class="QSpinBox" name="iLonMin">
+       <property name="toolTip">
+        <string>Longitude, minutes</string>
+       </property>
+       <property name="whatsThis">
+        <string>Longitude, minutes</string>
+       </property>
+       <property name="suffix">
+        <string>'</string>
+       </property>
+       <property name="maximum">
+        <number>59</number>
+       </property>
+       <property name="value">
+        <number>44</number>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="4">
+      <widget class="QSpinBox" name="iLonSec">
+       <property name="toolTip">
+        <string>Longitude, seconds</string>
+       </property>
+       <property name="whatsThis">
+        <string>Longitude, seconds</string>
+       </property>
+       <property name="suffix">
+        <string>&quot;</string>
+       </property>
+       <property name="maximum">
+        <number>59</number>
+       </property>
+       <property name="value">
+        <number>33</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <spacer name="verticalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Preferred</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QDialogButtonBox" name="buttonBox">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="standardButtons">
+        <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>iName</tabstop>
+  <tabstop>iPlace</tabstop>
+  <tabstop>iDateTime</tabstop>
+  <tabstop>buttonBox</tabstop>
+ </tabstops>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>TimeLocEditor</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>260</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>TimeLocEditor</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
