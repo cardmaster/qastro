@@ -10,7 +10,7 @@ PlanetSet::PlanetSet( const PlanetFactory &pf )
 {
 	foreach( PlanetFactory::PlanetId i, pf.planetIds() ){
 		Planet p = pf.create( i );
-		mMap.insert( p.name(), mPlanets.size() );
+		mMap.insert( p.name(), mPlanets.count() );
 		mPlanets.append( p );
 	}
 }
