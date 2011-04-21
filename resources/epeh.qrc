@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ephe/seas_18.se1</file>
+        <file>ephe/semo_18.se1</file>
+        <file>ephe/sepl_18.se1</file>
+    </qresource>
+</RCC>

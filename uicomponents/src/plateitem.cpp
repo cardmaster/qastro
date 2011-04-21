@@ -61,6 +61,9 @@ void PlateItem::setRotation (qreal rotation)
             rotation -= 360;
         }
         _rotation = rotation;
+        QTransform trans;
+        trans.rotate(- rotation);
+        setTransform(trans);
         emit rotationChanged(rotation);
     }
 }
